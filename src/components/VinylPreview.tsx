@@ -1,6 +1,8 @@
+// File: src/components/VinylPreview.tsx
+
 import React from 'react';
 
-type VinylPreviewProps = {
+interface VinylPreviewProps {
   jacketFront: string;
   jacketBack: string;
   showInnerSleeve: boolean;
@@ -14,7 +16,7 @@ type VinylPreviewProps = {
   jacketColorMode: string;
   jacketFinish: string;
   jacketType: string;
-};
+}
 
 const VinylPreview: React.FC<VinylPreviewProps> = ({
   jacketFront,
@@ -29,21 +31,18 @@ const VinylPreview: React.FC<VinylPreviewProps> = ({
   innerSleeveTexture,
   jacketColorMode,
   jacketFinish,
-  jacketType,
+  jacketType
 }) => {
   return (
-    <div className="text-center">
-      <div className="mb-4 font-semibold">Vinyl 3D Mockup Preview</div>
-      <div className="w-[300px] h-[300px] rounded-full border-[16px] border-gray-800 relative mx-auto"
-           style={{ backgroundColor: vinylColor }}>
-        {labelTexture && <img src={labelTexture} alt="label" className="absolute inset-1/3 w-1/3 h-1/3 rounded-full" />}
+    <div className="relative w-full h-full bg-white flex items-center justify-center text-center text-gray-600">
+      {/* Mock 3D Vinyl Visual Preview */}
+      <div className="w-[300px] h-[300px] bg-gradient-to-br from-gray-800 to-black rounded-full border-[8px] border-gray-700 flex items-center justify-center">
+        <div className="w-[80px] h-[80px] rounded-full bg-center bg-no-repeat bg-cover border-4 border-white"
+             style={{ backgroundImage: `url(${labelTexture})` }} />
       </div>
-      <p className="text-xs mt-2">Type: {vinylWeight} • Size: {vinylSize}" • Label: {labelMode}</p>
-      {showInnerSleeve && innerSleeveTexture && (
-        <img src={innerSleeveTexture} alt="Inner Sleeve" className="mt-2 max-h-24 mx-auto" />
-      )}
-      {jacketFront && <img src={jacketFront} alt="Jacket Front" className="mt-4 max-h-40 mx-auto" />}
-      {jacketBack && <img src={jacketBack} alt="Jacket Back" className="mt-2 max-h-40 mx-auto" />}
+      <p className="absolute bottom-4 text-sm">
+        {discCount}× {vinylSize} {vinylColor} Vinyl, {vinylWeight} • Jacket: {jacketType}, {jacketFinish}
+      </p>
     </div>
   );
 };
