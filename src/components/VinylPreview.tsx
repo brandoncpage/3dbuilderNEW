@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-interface VinylPreviewProps {
+type Props = {
   jacketFront: string;
   jacketBack: string;
   showInnerSleeve: boolean;
@@ -16,9 +16,9 @@ interface VinylPreviewProps {
   jacketColorMode: string;
   jacketFinish: string;
   jacketType: string;
-}
+};
 
-const VinylPreview: React.FC<VinylPreviewProps> = ({
+export default function VinylPreview({
   jacketFront,
   jacketBack,
   showInnerSleeve,
@@ -31,19 +31,31 @@ const VinylPreview: React.FC<VinylPreviewProps> = ({
   innerSleeveTexture,
   jacketColorMode,
   jacketFinish,
-  jacketType,
-}) => {
+  jacketType
+}: Props) {
   return (
-    <div className="relative w-[300px] h-[300px] bg-black rounded-full flex items-center justify-center border-8 border-gray-700 shadow-xl">
-      <div
-        className="w-[80px] h-[80px] rounded-full border-4 border-white bg-center bg-cover"
-        style={{
-          backgroundImage: `url(${labelTexture || ''})`,
-          backgroundColor: labelTexture ? 'transparent' : '#222',
-        }}
-      />
+    <div className="flex flex-col items-center gap-4 text-center p-4">
+      <div className="w-48 h-48 rounded-full border-4 border-black overflow-hidden shadow-lg relative">
+        {labelTexture ? (
+          <img src={labelTexture} alt="Label" className="w-full h-full object-cover" />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-gray-500">
+            {labelMode === 'color' ? 'Full Color' : labelMode === 'bw' ? 'B/W Label' : 'Blank'}
+          </div>
+        )}
+      </div>
+
+      <div className="text-sm">
+        <strong>Color:</strong> {vinylColor} <br />
+        <strong>Size:</strong> {vinylSize}" <br />
+        <strong>Weight:</strong> {vinylWeight} <br />
+        <strong>Discs:</strong> {discCount} <br />
+        <strong>Jacket:</strong> {jacketType} ({jacketColorMode}, {jacketFinish}) <br />
+        {jacketFront && <span className="block text-green-600">Front Cover: ✓</span>}
+        {jacketBack && <span className="block text-blue-600">Back Cover: ✓</span>}
+        {showInnerSleeve && <span className="block text-purple-600">Inner Sleeve: ✓</span>}
+      </div>
     </div>
   );
-};
+}
 
-export default VinylPreview;
