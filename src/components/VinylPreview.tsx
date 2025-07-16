@@ -31,18 +31,17 @@ const VinylPreview: React.FC<VinylPreviewProps> = ({
   innerSleeveTexture,
   jacketColorMode,
   jacketFinish,
-  jacketType
+  jacketType,
 }) => {
   return (
-    <div className="relative w-full h-full bg-white flex items-center justify-center text-center text-gray-600">
-      {/* Mock 3D Vinyl Visual Preview */}
-      <div className="w-[300px] h-[300px] bg-gradient-to-br from-gray-800 to-black rounded-full border-[8px] border-gray-700 flex items-center justify-center">
-        <div className="w-[80px] h-[80px] rounded-full bg-center bg-no-repeat bg-cover border-4 border-white"
-             style={{ backgroundImage: `url(${labelTexture})` }} />
-      </div>
-      <p className="absolute bottom-4 text-sm">
-        {discCount}× {vinylSize} {vinylColor} Vinyl, {vinylWeight} • Jacket: {jacketType}, {jacketFinish}
-      </p>
+    <div className="relative w-[300px] h-[300px] bg-black rounded-full flex items-center justify-center border-8 border-gray-700 shadow-xl">
+      <div
+        className="w-[80px] h-[80px] rounded-full border-4 border-white bg-center bg-cover"
+        style={{
+          backgroundImage: `url(${labelTexture || ''})`,
+          backgroundColor: labelTexture ? 'transparent' : '#222',
+        }}
+      />
     </div>
   );
 };
